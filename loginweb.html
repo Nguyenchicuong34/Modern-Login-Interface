@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Skillshare Style Enhanced</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00FF84; /* Màu xanh đặc trưng Skillshare */
+            --primary-hover: #00cc6a;
+            --dark-bg: #1e2a3b;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Hình nền mờ ảo hiện đại */
+            background: linear-gradient(135deg, #1e2a3b 0%, #111822 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Tạo các hình tròn trang trí phía sau */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(80px);
+        }
+        body::before {
+            background: #00FF84;
+            top: -50px;
+            left: -50px;
+            opacity: 0.2;
+        }
+        body::after {
+            background: #3b82f6;
+            bottom: -50px;
+            right: -50px;
+            opacity: 0.2;
+        }
+
+        /* Container chính */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            width: 900px;
+            max-width: 95%;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            display: flex;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Phần bên trái (Màu tối) */
+        .left-panel {
+            flex: 1;
+            background: #002333;
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        .left-panel h1 {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .highlight-line {
+            width: 60px;
+            height: 5px;
+            background-color: var(--primary-color);
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .left-panel p {
+            font-size: 1rem;
+            opacity: 0.8;
+            z-index: 2;
+        }
+
+        /* Phần bên phải (Form) */
+        .right-panel {
+            flex: 1.2;
+            padding: 40px 50px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: 0.3s;
+        }
+        .close-btn:hover { color: var(--text-dark); transform: rotate(90deg); }
+
+        /* Social Buttons */
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .social-btn i { margin-right: 10px; font-size: 1.2rem; }
+        .social-btn.fb i { color: #1877f2; }
+        .social-btn.gg i { color: #ea4335; }
+        .social-btn.ap i { color: #000; }
+        .social-btn.gh i { color: #333; }
+        .social-btn.in i { color: #0077b5; }
+
+        .social-btn:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-color: #ccc;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .divider span { padding: 0 10px; }
+
+        /* Form Inputs */
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 255, 132, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+
+        /* Checkbox & Forgot Password */
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .remember-me input { accent-color: var(--primary-color); width: 16px; height: 16px;}
+
+        .forgot-pass {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .forgot-pass:hover { color: var(--primary-hover); text-decoration: underline; }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: #002333;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 255, 132, 0.4);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .footer-text a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Signature */
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        .signature span {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            .left-panel {
+                flex: 0.3;
+                padding: 30px;
+            }
+            .left-panel h1 { font-size: 1.8rem; }
+            .right-panel { flex: 1; padding: 30px; border-radius: 20px 20px 0 0; margin-top: -20px; }
+            .signature { color: var(--text-light); bottom: 10px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="left-panel">
+            <h1>Welcome Back to<br>Skillshare</h1>
+            <div class="highlight-line"></div>
+            <p>Đăng nhập để tiếp tục lộ trình học tập của bạn.</p>
+        </div>
+
+        <div class="right-panel">
+            <span class="close-btn">&times;</span>
+            
+            <div class="social-buttons">
+                <a href="#" class="social-btn fb"><i class="fab fa-facebook-f"></i> Continue with Facebook</a>
+                <a href="#" class="social-btn gg"><i class="fab fa-google"></i> Continue with Google</a>
+                <a href="#" class="social-btn ap"><i class="fab fa-apple"></i> Continue with Apple</a>
+                <div style="display: flex; gap: 10px;">
+                    <a href="#" class="social-btn gh" style="flex: 1;"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#" class="social-btn in" style="flex: 1;"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                </div>
+            </div>
+
+            <div class="divider"><span>OR</span></div>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="email" placeholder="Email address" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fa-regular fa-eye input-icon" id="togglePassword"></i>
+                </div>
+
+                <div class="actions">
+                    <label class="remember-me">
+                        <input type="checkbox"> Keep me signed in
+                    </label>
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn-submit">Sign In</button>
+
+                <p class="footer-text">
+                    Not a member yet? <a href="#">Sign Up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <div class="signature">
+        Designed & Developed By <span>Nguyen Chi Cuong</span>
+    </div>
+
+    <script>
+        // Xử lý ẩn/hiện mật khẩu
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            // Toggle type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Toggle icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Xử lý sự kiện submit form (Demo)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            const originalText = btn.innerText;
+            
+            // Hiệu ứng loading
+            btn.innerText = 'Signing In...';
+            btn.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                alert('Đăng nhập thành công! (Demo by Nguyen Chi Cuong)');
+                btn.innerText = originalText;
+                btn.style.opacity = '1';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
